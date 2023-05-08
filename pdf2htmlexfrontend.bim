@@ -1,0 +1,324 @@
+; -------------------------------------------------
+;  Warning! Do not modify this file by hand.
+;  If the format is not respected, the installer
+;  may misbehave when running on the user's PC.
+;  Please use BIM to make any changes.
+; -------------------------------------------------
+;  Last modified: 02/02/2023 (DMY) at 08:31:47
+; -------------------------------------------------
+[Header]
+FileID = Bytessence Install Maker
+FileVersion = 5
+; -------------------------------------------------
+[GeneralInformation]
+ProgramName = pdf2htmlEX Frontend
+ProgramVersion = 1.0
+ProgramWebsite = https://www.trt13.jus.br
+WebsiteCfgShowAddress = 1
+WebsiteCfgRunForUser = 1
+SupportEmail = ebarruda@trt13.jus.br
+CompanyName = TRT 13ª Região
+CopyrightString = Copyright (c) Ericson Benjamim
+OutputFile = C:\temp\instala_pdf2htmlexfrontend_1x.exe
+IconFile = 
+InstallerBandText = <ProgramName> Instalador
+InstallerWindowTitle = <ProgramName> <ProgramVersion> Instalador
+CompressionAlgo = BLP/LZMA
+CompressionLevel = 3
+; -------------------------------------------------
+[InstallerExeInfo]
+CompanyName = 
+Copyright = 
+Email = 
+FileDescription = 
+ProductName = 
+ProductVersion = 
+Website = 
+MajorHigh = 1
+MajorLow = 0
+MinorHigh = 0
+MinorLow = 0
+; -------------------------------------------------
+[SystemRequirements]
+Win95 = 0
+WinNT4 = 0
+Win98 = 0
+WinMe = 0
+Win2000 = 0
+WinXP = 0
+Win2003 = 0
+WinVista = 0
+Win2008 = 1
+Win7 = 1
+Win8 = 1
+Win2012 = 1
+InstallerType = 0
+RequireAdminRights = 0
+DotNETVersion = 0
+DotNETVisitWebpage = 0
+DotNETWebpageAddress = http://
+DotNETRunForUser = 1
+IEVersion = 0
+IEVisitWebpage = 0
+IEWebpageAddress = http://
+IERunForUser = 1
+CheckSysRequirements = 0
+CheckCPUSpeed = 0
+CPUSpeedMin = 133
+CPUSpeedRec = 266
+CheckMemSize = 0
+MemSizeMin = 64
+MemSizeRec = 128
+CheckExtraSpace = 0
+ExtraSpaceScope = 0
+ExtraSpaceMin = 8
+ExtraSpaceRec = 16
+FailMinimumReqs = 1
+FailRecommendedReqs = 0
+RequireExistingItems = 0
+CheckForInstances = 0
+; -------------------------------------------------
+[RegistryVars]
+CreateRegistryVars = 1
+; -------------------------------------------------
+[FileConfig]
+ReplaceStatus = 0
+DefaultInstPath = <RootPartition>\Software\pdf2htmlEXFrontend\
+EnforceDefaultInstPath = 0
+ForceInstMode = 0
+; -------------------------------------------------
+[Categories]
+Items = 40755425
+; -------------------------------------------------
+[40755425]
+ID = 40755425
+InternalName = Arquivos
+LocalizedNameID = 96333080
+; -------------------------------------------------
+[96333080]
+-1 = 
+; -------------------------------------------------
+[Components]
+Items = 80140906
+; -------------------------------------------------
+[80140906]
+ID = 80140906
+CategoryID = 40755425
+InternalName = Arquivos
+LocalizedNameID = 17660619
+DescriptionID = 41700786
+PathVariable = <Arquivos>
+InstallationPath = <DefaultInstPath>\
+IsMandatory = 1
+IsMarked = 1
+; -------------------------------------------------
+[17660619]
+-1 = 
+; -------------------------------------------------
+[41700786]
+-1 = 
+; -------------------------------------------------
+[Folders]
+Items = 32148714
+; -------------------------------------------------
+[32148714]
+ID = 32148714
+ComponentID = 80140906
+FolderPath = C:\temp\pdf2htmlexfrontend\
+; -------------------------------------------------
+[DetectExistingInstallations]
+PromptUninstallExisting = 0
+; -------------------------------------------------
+[LookAndFeel]
+InstallerType = 0
+WizardImage = C:\Instalacao\BIM540_PORTABLE\Graphics\Wizard\Classic_blue.bmp
+HeaderImage = C:\Instalacao\BIM540_PORTABLE\Graphics\Header\Classic_blue.bmp
+HeaderTitleTextFont = Tahoma
+HeaderTitleTextSize = 8
+HeaderTitleTextFlags = 0
+HeaderTitleTextPosX = 10
+HeaderTitleTextPosY = 13
+HeaderTitleTextColor = 0
+HeaderTitleTextShadow = 0
+HeaderTitleTextShadowColor = 14145495
+HeaderTextFont = Tahoma
+HeaderTextSize = 8
+HeaderTextFlags = 0
+HeaderTextPosX = 15
+HeaderTextPosY = 34
+HeaderTextColor = 0
+HeaderTextShadow = 0
+HeaderTextShadowColor = 14145495
+ShowInformation = 0
+ShowLicense = 0
+ShowCopyrightNotice = 0
+BKUseGradient = 1
+BKUsePicture = 0
+BKFirstColor = 8421504
+BKSecondColor = 16777215
+BKTextColor = 15132390
+BKVertical = 1
+BKHorizontal = 0
+BKPicturePath = 
+BKText = 
+BKShowCopyright = 0
+; -------------------------------------------------
+[Localization]
+0 = 1046
+; -------------------------------------------------
+[InstallerSettings]
+CreateGroup = 1
+CustomStartMenuGroup = <ProgramName>
+CreateUninstallShortcut = 1
+CustomStartMenuUninstall = <ProgramName> - Desinstalar
+CreateInternetLink = 0
+CustomStartMenuWebLink = Website
+CreateSMProgramShortcut = 0
+SMProgramOutputName = 
+SMProgramFilePath = 
+SMProgramIconPath = 
+SMProgramIconIndex = 0
+SMProgramCommandLine = 
+SMProgramStartIn = 
+SMProgramComment = 
+SMProgramComponentID = 0
+CreateSMDocumentationShortcut = 0
+SMDocumentationOutputName = 
+SMDocumentationFilePath = 
+SMDocumentationIconPath = 
+SMDocumentationIconIndex = 0
+SMDocumentationCommandLine = 
+SMDocumentationStartIn = 
+SMDocumentationComment = 
+SMDocumentationComponentID = 0
+CreateSMReadmeShortcut = 0
+SMReadmeOutputName = 
+SMReadmeFilePath = 
+SMReadmeIconPath = 
+SMReadmeIconIndex = 0
+SMReadmeCommandLine = 
+SMReadmeStartIn = 
+SMReadmeComment = 
+SMReadmeComponentID = 0
+CreateSMLicenseShortcut = 0
+SMLicenseOutputName = 
+SMLicenseFilePath = 
+SMLicenseIconPath = 
+SMLicenseIconIndex = 0
+SMLicenseCommandLine = 
+SMLicenseStartIn = 
+SMLicenseComment = 
+SMLicenseComponentID = 0
+ShowRestartComputerCheckbox = 0
+LaunchProgramCheckbox = 1
+LaunchProgramProgramPath = <Arquivos>\pdf2htmlexfrontend.exe
+LaunchProgramCommandLine = 
+LaunchProgramRunMode = 0
+LaunchProgramRunHidden = 0
+LaunchProgramWaitUntilQuit = 0
+LaunchProgramRunForUser = 1
+LaunchProgramComponentID = 80140906
+ViewDocumentationCheckbox = 0
+ViewDocumentationProgramPath = 
+ViewDocumentationCommandLine = 
+ViewDocumentationRunMode = 1
+ViewDocumentationRunHidden = 0
+ViewDocumentationWaitUntilQuit = 0
+ViewDocumentationRunForUser = 1
+ViewDocumentationComponentID = 0
+ViewReadmeCheckbox = 0
+ViewReadmePath = 
+ViewReadmeCommandLine = 
+ViewReadmeRunMode = 1
+ViewReadmeRunHidden = 0
+ViewReadmeWaitUntilQuit = 0
+ViewReadmeRunForUser = 1
+ViewReadmeComponentID = 0
+ViewLicenseCheckbox = 0
+ViewLicensePath = 
+ViewLicenseCommandLine = 
+ViewLicenseRunMode = 1
+ViewLicenseRunHidden = 0
+ViewLicenseWaitUntilQuit = 0
+ViewLicenseRunForUser = 1
+ViewLicenseComponentID = 0
+VisitWebsiteCheckbox = 0
+VisitWebsiteAddress = http://
+VisitWebsiteRunForUser = 1
+; -------------------------------------------------
+[InstallerTasks]
+Items = 6263933,76332386
+; -------------------------------------------------
+[6263933]
+ID = 6263933
+Name = Cliente Atalho Desktop
+Type = 3
+Win95 = 0
+WinNT4 = 0
+Win98 = 0
+WinMe = 0
+Win2000 = 0
+WinXP = 0
+WinServer2003 = 0
+WinVista = 0
+WinServer2008 = 1
+Win7 = 1
+Win8 = 1
+WinServer2012 = 1
+ComponentID = 80140906
+OutputPath = <UserDesktop>\pdf2htmlEX Frontend
+FilePath = <Arquivos>\pdf2htmlexfrontend.exe
+IconPath = 
+IconIndex = 0
+CommandLine = 
+StartIn = <Arquivos>
+Comment = pdf2htmlEX Frontend
+; -------------------------------------------------
+[76332386]
+ID = 76332386
+Name = Cliente Atalho Menu Iniciar
+Type = 3
+Win95 = 0
+WinNT4 = 0
+Win98 = 0
+WinMe = 0
+Win2000 = 0
+WinXP = 0
+WinServer2003 = 0
+WinVista = 0
+WinServer2008 = 1
+Win7 = 1
+Win8 = 1
+WinServer2012 = 1
+ComponentID = 80140906
+OutputPath = <DefaultStartMenuGroup>\pdf2htmlEX Frontend
+FilePath = <Arquivos>\pdf2htmlexfrontend.exe
+IconPath = 
+IconIndex = 0
+CommandLine = 
+StartIn = <Arquivos>
+Comment = pdf2htmlEX Frontend
+; -------------------------------------------------
+[UninstallerSettings]
+CreateUninstaller = 1
+CreateAddRemoveEntry = 1
+AddRemoveEntryName = <ProgramName> <ProgramVersion>
+AddRemoveProgramName = <ProgramName>
+AddRemoveProgramVersion = <ProgramVersion>
+UninstallerIconPath = 
+UninstRestartPC = 0
+CheckForInstances = 0
+; -------------------------------------------------
+[UninstallerExeInfo]
+CompanyName = 
+Copyright = 
+Email = 
+FileDescription = 
+ProductName = 
+ProductVersion = 
+Website = 
+MajorHigh = 1
+MajorLow = 0
+MinorHigh = 0
+MinorLow = 0
+; -------------------------------------------------
