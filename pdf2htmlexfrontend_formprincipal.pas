@@ -20,8 +20,11 @@ type
     ButtonSelecionarPastaSaida: TButton;
     CheckBoxSubstituirArquivosAutomaticamente: TCheckBox;
     CheckBoxExibirConsoleProcessamento: TCheckBox;
+    ComboBoxCodigoIncluirSecao: TComboBox;
+    ComboBoxIncluirCodigo: TComboBox;
     ComboBoxPastaSaida: TComboBox;
     Label1: TLabel;
+    LabelConfiguracaoXml: TLabel;
     LabelManualHtml: TLabel;
     LabelArquivoPdf: TLabel;
     LabelTutorialVideo: TLabel;
@@ -43,6 +46,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
+    procedure LabelConfiguracaoXmlDblClick(Sender: TObject);
     procedure LabelManualHtmlClick(Sender: TObject);
     procedure LabelCodigoFonteClick(Sender: TObject);
     procedure LabelTutorialVideoClick(Sender: TObject);
@@ -54,9 +58,16 @@ type
     ArquivoXml: String;
     StringListXml: TStringList;
     StringListPdf: TStringList;
+    UrlCodigoFonte: String;
+    UrlTutorialVideo: String;
+
     function MyGetPart(GTag, GRegistro: String): String;
+    function iGetPart(GTag1, GTag2, GRegistro: String): String;
+
     procedure GetFilesInDirs(Dir:string);
     procedure AddFile(Filename:string);
+    procedure IncluiCodigo(PArquivoHtml: String);
+    procedure SalvaConfiguracao;
   end;
 
 var
@@ -80,24 +91,85 @@ begin
   end;
 end;
 
-procedure TFormPrincipal.FormCreate(Sender: TObject);
+function TFormPrincipal.iGetPart(GTag1, GTag2, GRegistro: String): String;
 begin
+  try
+    Result := GetPart([GTag1], [GTag2], GRegistro, False, False);
+  except
+    Result := '';
+  end;
+end;
+
+procedure TFormPrincipal.FormCreate(Sender: TObject);
+var
+  FIncluirCodigo: String = '';
+  FIncluirCodigoItens: String = '';
+  FIncluirCodigoIndice: SmallInt = 0;
+  FIncluirCodigoSecaoIndice: SmallInt = 0;
+begin
+  UrlCodigoFonte := 'https://github.com/ebarruda13/pdf2htmlexfrontend';
+  UrlTutorialVideo := 'https://youtu.be/tg7nACwtZ0Y';
+
+  LabelCodigoFonte.Hint := UrlCodigoFonte;
+  LabelTutorialVideo.Hint := UrlTutorialVideo;
+
   ComboBoxPastaSaida.Items.Add('Mesma pasta do arquivo PDF');
 
   ComboBoxPastaSaida.ItemIndex := 0;
 
   ArquivoXml := IncludeTrailingPathDelimiter(GetEnvironmentVariable('TEMP')) + 'pdf2htmlexfrontend.xml';
 
+  LabelConfiguracaoXml.Caption := ArquivoXml;
+
   StringListXml := TStringList.Create;
   StringListPdf := TStringList.Create;
 
   try
     StringListXml.LoadFromFile(ArquivoXml);
-
-    FormPrincipal.Top := StrToIntDef(MyGetPart('topo', StringListXml.Text), FormPrincipal.Top);
-    FormPrincipal.Left := StrToIntDef(MyGetPart('esquerda', StringListXml.Text), FormPrincipal.Left);
   except
   end;
+
+  FormPrincipal.Top := StrToIntDef(MyGetPart('topo', StringListXml.Text), FormPrincipal.Top);
+  FormPrincipal.Left := StrToIntDef(MyGetPart('esquerda', StringListXml.Text), FormPrincipal.Left);
+  FIncluirCodigoIndice := StrToIntDef(MyGetPart('incluir_codigo_indice', StringListXml.Text), 0);
+  FIncluirCodigoSecaoIndice := StrToIntDef(MyGetPart('incluir_codigo_secao_indice', StringListXml.Text), 0);
+
+  with ComboBoxCodigoIncluirSecao.Items do
+    begin
+      Add('Após a seção <head>');
+      Add('Antes da seção </head>');
+      Add('Após a seção <body>');
+      Add('Antes da seção </body>');
+    end;
+
+  if FIncluirCodigoSecaoIndice < ComboBoxCodigoIncluirSecao.Items.Count then
+    ComboBoxCodigoIncluirSecao.ItemIndex := FIncluirCodigoSecaoIndice
+  else
+    ComboBoxCodigoIncluirSecao.ItemIndex := 0;
+
+  ComboBoxIncluirCodigo.Items.Add('Não incluir');
+
+  FIncluirCodigoItens := MyGetPart('incluir_codigo_itens', StringListXml.Text);
+
+  while (Pos('<codigo>', FIncluirCodigoItens) > 0) and (Pos('</codigo>', FIncluirCodigoItens) > 0) do
+    begin
+      FIncluirCodigo := MyGetPart('codigo', FIncluirCodigoItens);
+
+      ComboBoxIncluirCodigo.Items.Add(FIncluirCodigo);
+
+      FIncluirCodigoItens := StringReplace(FIncluirCodigoItens, '<codigo>' + FIncluirCodigo + '</codigo>', '', [rfReplaceAll]);
+    end;
+
+  if ComboBoxIncluirCodigo.Items.Count = 1 then
+    begin
+      ComboBoxIncluirCodigo.Items.Add('Rybena Produção: <script type="text/javascript" src="https://normasinternas.trt13.jus.br/xmlui/themes/trt7/scripts/rybena.js"></script>');
+      ComboBoxIncluirCodigo.Items.Add('Rybena Homologação: <script type="text/javascript" src="https://sistemas-hml.trt13.jus.br/xmlui/themes/trt7/scripts/rybena.js"></script>');
+    end;
+
+  if FIncluirCodigoIndice < ComboBoxIncluirCodigo.Items.Count then
+    ComboBoxIncluirCodigo.ItemIndex := FIncluirCodigoIndice
+  else
+    ComboBoxIncluirCodigo.ItemIndex := 0;
 
   PageControl1.ActivePageIndex := 0;
 end;
@@ -113,6 +185,11 @@ begin
       else
         AddFile(FileNames[Counter]);
     end;
+end;
+
+procedure TFormPrincipal.LabelConfiguracaoXmlDblClick(Sender: TObject);
+begin
+  OpenDocument(ArquivoXml);
 end;
 
 procedure TFormPrincipal.GetFilesInDirs(Dir: string);
@@ -145,6 +222,13 @@ end;
 
 procedure TFormPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  SalvaConfiguracao;
+end;
+
+procedure TFormPrincipal.SalvaConfiguracao;
+var
+  FIndice: SmallInt;
+begin
   try
     StringListXml.Clear;
 
@@ -153,6 +237,17 @@ begin
       Add('<pdf2htmlexfrontend>');
       Add('<topo>' + FormPrincipal.Top.ToString + '</topo>');
       Add('<esquerda>' + FormPrincipal.Left.ToString + '</esquerda>');
+      Add('<incluir_codigo_indice>' + ComboBoxIncluirCodigo.ItemIndex.ToString + '</incluir_codigo_indice>');
+      Add('<incluir_codigo_secao_indice>' + ComboBoxCodigoIncluirSecao.ItemIndex.ToString + '</incluir_codigo_secao_indice>');
+
+      if ComboBoxIncluirCodigo.Items.Count > 1 then
+        begin
+          for FIndice := 1 to ComboBoxIncluirCodigo.Items.Count - 1 do
+            begin
+              Add('<codigo>' + ComboBoxIncluirCodigo.Items.Strings[FIndice] + '</codigo>');
+            end;
+        end;
+
       Add('</pdf2htmlexfrontend>');
     end;
 
@@ -354,6 +449,15 @@ begin
         end;
       end;
 
+      if ComboBoxIncluirCodigo.ItemIndex > 0 then
+        begin
+          MemoOperacao.Lines.Add('Incluindo código...');
+
+          IncluiCodigo(ProcessPdf2htmlex.CurrentDirectory + ArquivoTmp);
+
+          MemoOperacao.Lines.Add('Código incluído.');
+        end;
+
       if Copiar then begin
         try
           CopyFile(ProcessPdf2htmlex.CurrentDirectory + ArquivoTmp, ArquivoHtml);
@@ -391,6 +495,57 @@ begin
   end;
 end;
 
+procedure TFormPrincipal.IncluiCodigo(PArquivoHtml: String);
+var
+  FStringListHtml: TStringlist;
+  FSecao: String;
+  FSecaoParametros: String;
+  FCodigoIncluir: String;
+begin
+  FStringListHtml := TStringlist.Create;
+
+  try
+    FStringListHtml.LoadFromFile(PArquivoHtml);
+  except
+  end;
+
+  if FStringListHtml.Count > 0 then
+    begin
+      FCodigoIncluir := ComboBoxIncluirCodigo.Items.Strings[ComboBoxIncluirCodigo.ItemIndex];
+
+      if Pos(': ', FCodigoIncluir) > 0 then
+        begin
+           Delete(FCodigoIncluir, 1, Pos(': ', FCodigoIncluir) + 1);
+        end;
+
+      if ComboBoxCodigoIncluirSecao.ItemIndex < 1 then FSecao := '<head';
+      if ComboBoxCodigoIncluirSecao.ItemIndex = 1 then FSecao := '</head';
+      if ComboBoxCodigoIncluirSecao.ItemIndex = 2 then FSecao := '<body';
+      if ComboBoxCodigoIncluirSecao.ItemIndex = 3 then FSecao := '</body';
+
+      FSecaoParametros := iGetPart(FSecao, '>', FStringListHtml.Text) + '>';
+
+      if Pos(FSecao, FStringListHtml.Text) > 0 then
+        begin
+          if Pos('/', FSecao) > 0 then
+            begin
+              FStringListHtml.Text := StringReplace(FStringListHtml.Text, FSecao + FSecaoParametros, FCodigoIncluir + FSecao + FSecaoParametros, [rfReplaceAll]);
+            end
+          else
+            begin
+              FStringListHtml.Text := StringReplace(FStringListHtml.Text, FSecao + FSecaoParametros, FSecao + FSecaoParametros + FCodigoIncluir, [rfReplaceAll]);
+            end;
+
+          try
+            FStringListHtml.SaveToFile(PArquivoHtml);
+          except
+          end;
+        end;
+    end;
+
+  FStringListHtml.Free;
+end;
+
 procedure TFormPrincipal.LabelManualHtmlClick(Sender: TObject);
 begin
   OpenDocument(ExtractFilePath(Application.ExeName) + 'pdf2htmlexfrontend_manual.xhtml');
@@ -398,12 +553,12 @@ end;
 
 procedure TFormPrincipal.LabelCodigoFonteClick(Sender: TObject);
 begin
-  OpenURL('https://drive.google.com/file/d/1reOARXhMF-XmndRM2DR9bA6p_72SYzl4/view?usp=share_link');
+  OpenURL(UrlCodigoFonte);
 end;
 
 procedure TFormPrincipal.LabelTutorialVideoClick(Sender: TObject);
 begin
-  OpenURL('https://youtu.be/tg7nACwtZ0Y');
+  OpenURL(UrlTutorialVideo);
 end;
 
 end.

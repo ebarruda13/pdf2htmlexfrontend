@@ -4,7 +4,7 @@
 ;  may misbehave when running on the user's PC.
 ;  Please use BIM to make any changes.
 ; -------------------------------------------------
-;  Last modified: 02/02/2023 (DMY) at 08:31:47
+;  Last modified: 02/05/2023 (DMY) at 14:14:59
 ; -------------------------------------------------
 [Header]
 FileID = Bytessence Install Maker
@@ -12,7 +12,7 @@ FileVersion = 5
 ; -------------------------------------------------
 [GeneralInformation]
 ProgramName = pdf2htmlEX Frontend
-ProgramVersion = 1.0
+ProgramVersion = 1.1
 ProgramWebsite = https://www.trt13.jus.br
 WebsiteCfgShowAddress = 1
 WebsiteCfgRunForUser = 1

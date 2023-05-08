@@ -6,7 +6,7 @@ object FormPrincipal: TFormPrincipal
   AllowDropFiles = True
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'pdf2htmlEX Frontend - Por Ericson Benjamim - versão 1.0'
+  Caption = 'pdf2htmlEX Frontend - Por Ericson Benjamim - versão 1.1'
   ClientHeight = 514
   ClientWidth = 833
   OnClose = FormClose
@@ -44,8 +44,8 @@ object FormPrincipal: TFormPrincipal
       ClientWidth = 784
       object ListBoxArquivoPdf: TListBox
         Left = 208
-        Height = 256
-        Top = 16
+        Height = 224
+        Top = 48
         Width = 560
         Font.CharSet = ANSI_CHARSET
         Font.Height = -12
@@ -59,7 +59,7 @@ object FormPrincipal: TFormPrincipal
         ParentShowHint = False
         ParentFont = False
         ShowHint = True
-        TabOrder = 0
+        TabOrder = 7
       end
       object ButtonSelecionarArquivosPdf: TButton
         Left = 16
@@ -68,7 +68,7 @@ object FormPrincipal: TFormPrincipal
         Width = 176
         Caption = 'Selecionar arquivos PDF'
         OnClick = ButtonSelecionarArquivosPdfClick
-        TabOrder = 1
+        TabOrder = 0
       end
       object ButtonRemoverLista: TButton
         Left = 16
@@ -77,7 +77,7 @@ object FormPrincipal: TFormPrincipal
         Width = 176
         Caption = 'Remover da lista'
         OnClick = ButtonRemoverListaClick
-        TabOrder = 2
+        TabOrder = 1
       end
       object ButtonRemoverListaTodos: TButton
         Left = 16
@@ -86,7 +86,7 @@ object FormPrincipal: TFormPrincipal
         Width = 176
         Caption = 'Remover todos da lista'
         OnClick = ButtonRemoverListaTodosClick
-        TabOrder = 3
+        TabOrder = 2
       end
       object ButtonConverter: TButton
         Left = 16
@@ -95,7 +95,7 @@ object FormPrincipal: TFormPrincipal
         Width = 176
         Caption = 'Converter'
         OnClick = ButtonConverterClick
-        TabOrder = 4
+        TabOrder = 3
       end
       object ButtonSelecionarPastaSaida: TButton
         Left = 16
@@ -104,7 +104,7 @@ object FormPrincipal: TFormPrincipal
         Width = 176
         Caption = 'Selecionar pasta de saída'
         OnClick = ButtonSelecionarPastaSaidaClick
-        TabOrder = 5
+        TabOrder = 4
       end
       object ComboBoxPastaSaida: TComboBox
         Left = 16
@@ -113,7 +113,7 @@ object FormPrincipal: TFormPrincipal
         Width = 752
         ItemHeight = 15
         ReadOnly = True
-        TabOrder = 6
+        TabOrder = 8
       end
       object ProgressBarConversao: TProgressBar
         Left = 208
@@ -121,7 +121,7 @@ object FormPrincipal: TFormPrincipal
         Top = 312
         Width = 560
         ParentColor = False
-        TabOrder = 7
+        TabOrder = 9
       end
       object CheckBoxSubstituirArquivosAutomaticamente: TCheckBox
         Left = 16
@@ -131,7 +131,7 @@ object FormPrincipal: TFormPrincipal
         Caption = 'Substituir arquivos automaticamente'
         Checked = True
         State = cbChecked
-        TabOrder = 8
+        TabOrder = 10
       end
       object LabelArquivoPdf: TLabel
         Left = 208
@@ -156,7 +156,25 @@ object FormPrincipal: TFormPrincipal
         Top = 388
         Width = 193
         Caption = 'Exibir console de processamento'
-        TabOrder = 9
+        TabOrder = 11
+      end
+      object ComboBoxIncluirCodigo: TComboBox
+        Left = 208
+        Height = 23
+        Top = 16
+        Width = 395
+        ItemHeight = 15
+        Style = csDropDownList
+        TabOrder = 5
+      end
+      object ComboBoxCodigoIncluirSecao: TComboBox
+        Left = 615
+        Height = 23
+        Top = 16
+        Width = 153
+        ItemHeight = 15
+        Style = csDropDownList
+        TabOrder = 6
       end
     end
     object TabSheet2: TTabSheet
@@ -180,6 +198,7 @@ object FormPrincipal: TFormPrincipal
       object LabelManualHtml: TLabel
         Left = 224
         Height = 21
+        Hint = 'pdf2htmlexfrontend_manual.xhtml'
         Top = 104
         Width = 330
         Caption = 'Manual de operação do programa'
@@ -192,11 +211,14 @@ object FormPrincipal: TFormPrincipal
         Font.Style = [fsUnderline]
         ParentColor = False
         ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
         OnClick = LabelManualHtmlClick
       end
       object LabelTutorialVideo: TLabel
         Left = 296
         Height = 21
+        Hint = 'https://youtu.be/tg7nACwtZ0Y'
         Top = 184
         Width = 187
         Caption = 'Tutorial em vídeo'
@@ -209,11 +231,14 @@ object FormPrincipal: TFormPrincipal
         Font.Style = [fsUnderline]
         ParentColor = False
         ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
         OnClick = LabelTutorialVideoClick
       end
       object LabelCodigoFonte: TLabel
         Left = 320
         Height = 21
+        Hint = 'https://github.com/ebarrudatrt13/pdf2htmlexfrontend'
         Top = 264
         Width = 132
         Caption = 'Código fonte'
@@ -226,11 +251,25 @@ object FormPrincipal: TFormPrincipal
         Font.Style = [fsUnderline]
         ParentColor = False
         ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
         OnClick = LabelCodigoFonteClick
+      end
+      object LabelConfiguracaoXml: TLabel
+        Left = 16
+        Height = 15
+        Top = 376
+        Width = 753
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'LabelConfiguracaoXml'
+        ParentColor = False
+        OnDblClick = LabelConfiguracaoXmlDblClick
       end
     end
   end
   object OpenDialogPdf: TOpenDialog
+    Title = 'Selecionar arquivos PDF'
     Filter = 'Arquivos PDF (*.pdf)|*.pdf|Todos os arquivos (*.*)|*.*'
     Options = [ofAllowMultiSelect, ofFileMustExist, ofEnableSizing, ofViewDetail]
     Left = 696
