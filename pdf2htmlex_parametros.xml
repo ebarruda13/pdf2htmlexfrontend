@@ -13,24 +13,24 @@
 <parametro>embed-font</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos arquivos de fonte na saída</descricao>
 <parametro>embed-image</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos arquivos de imagem na saída</descricao>
 <parametro>embed-javascript</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos JavaScript na saída</descricao>
-<parametro>embed-outline</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos contornos na saída</descricao>
+<parametro>embed-outline</parametro><valor>0</valor><padrao>1</padrao><habilitado>1</habilitado><descricao>Incorpora arquivos contornos na saída</descricao>
 <parametro>external-hint-tool</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ferramenta externa para fontes com dicas (substitui --auto-hint)</descricao>
 <parametro>fallback</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Saída no modo fallback</descricao>
 <parametro>first-page</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Primeira página a ser convertida</descricao>
 <parametro>fit-height</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ajuste de altura para N pixels (valor decimal)</descricao>
 <parametro>fit-width</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ajuste de largura para N pixels (valor decimal)</descricao>
-<parametro>font-format</parametro><valor>svg</valor><padrao>woff</padrao><habilitado>1</habilitado><descricao>Sufixo para arquivos de fontes incorporadas (ttf,otf,woff,svg)</descricao>
+<parametro>font-format</parametro><valor>woff</valor><padrao>woff</padrao><habilitado>0</habilitado><descricao>Sufixo para arquivos de fontes incorporadas (ttf,otf,woff,svg)</descricao>
 <parametro>font-size-multiplier</parametro><valor>4</valor><padrao>4</padrao><habilitado>0</habilitado><descricao>Um valor maior que 1 aumenta a precisão da renderização</descricao>
-<parametro>hdpi</parametro><valor>144</valor><padrao>144</padrao><habilitado>1</habilitado><descricao>Resolução horizontal para gráficos em DPI</descricao>
-<parametro>heps</parametro><valor>1</valor><padrao>1</padrao><habilitado>1</habilitado><descricao>Limite horizontal para mesclar texto, em pixels</descricao>
+<parametro>hdpi</parametro><valor>144</valor><padrao>144</padrao><habilitado>0</habilitado><descricao>Resolução horizontal para gráficos em DPI</descricao>
+<parametro>heps</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Limite horizontal para mesclar texto, em pixels</descricao>
 <parametro>last-page</parametro><valor>2147483647</valor>2147483647<padrao></padrao><habilitado>0</habilitado><descricao>Última página a ser convertida</descricao>
 <parametro>no-drm</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Substitui configurações de DRM do documento</descricao>
 <parametro>optimize-text</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Tenta reduzir o número de elementos HTML usados para texto</descricao>
-<parametro>outline-filename</parametro><valor></valor><padrao></padrao><habilitado>1</habilitado><descricao>Nome do arquivo de estrutura de tópicos gerado</descricao>
+<parametro>outline-filename</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Nome do arquivo de estrutura de tópicos gerado</descricao>
 <parametro>override-fstype</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Limpa os bits fstype em fontes TTF/OTF</descricao>
 <parametro>owner-password</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Senha do proprietário (para arquivos criptografados)</descricao>
 <parametro>page-filename</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Modelo de nome de arquivo para páginas divididas</descricao>
-<parametro>printing</parametro><valor>1</valor><padrao>1</padrao><habilitado>1</habilitado><descricao>Ativar suporte de impressão</descricao>
+<parametro>printing</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Ativar suporte de impressão</descricao>
 <parametro>process-annotation</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Mostra anotação em HTML</descricao>
 <parametro>process-form</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Inclui campos de texto e botões de opção</descricao>
 <parametro>process-nontext</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Renderiza gráficos além de texto</descricao>

@@ -175,7 +175,7 @@ begin
       Add('<parametro>embed-font</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos arquivos de fonte na saída</descricao>');
       Add('<parametro>embed-image</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos arquivos de imagem na saída</descricao>');
       Add('<parametro>embed-javascript</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos JavaScript na saída</descricao>');
-      Add('<parametro>embed-outline</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos contornos na saída</descricao>');
+      Add('<parametro>embed-outline</parametro><valor>0</valor><padrao>1</padrao><habilitado>1</habilitado><descricao>Incorpora arquivos contornos na saída</descricao>');
       Add('<parametro>split-pages</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Divide as páginas em arquivos separados</descricao>');
       Add('<parametro>dest-dir</parametro><valor></valor><padrao>.</padrao><habilitado>0</habilitado><descricao>Especifica o diretório de destino</descricao>');
       Add('<parametro>css-filename</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Nome do arquivo CSS gerado</descricao>');
@@ -649,9 +649,7 @@ begin
 
       FProcessPdf2htmlex.Parameters.Clear;
 
-      // --dest-dir
-
-      FProcessPdf2htmlex.Parameters.Add('--embed-outline=0'); // https://github.com/coolwanglu/pdf2htmlEX/wiki/Command-Line-Options
+      // https://github.com/coolwanglu/pdf2htmlEX/wiki/Command-Line-Options --dest-dir
 
       if StringListConfig.Count > 0 then begin
         for FIndiceConfig := 0 to StringListConfig.Count - 1 do begin
