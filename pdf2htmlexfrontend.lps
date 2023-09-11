@@ -20,155 +20,132 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="530"/>
-        <CursorPos X="115" Y="547"/>
+        <TopLine Value="409"/>
+        <CursorPos X="54" Y="477"/>
         <UsageCount Value="588"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\filutilh.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="76"/>
-        <CursorPos X="9" Y="3"/>
-        <UsageCount Value="4"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\lazarus\components\lazutils\lazfileutils.pas"/>
-        <UnitName Value="LazFileUtils"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="27"/>
-        <CursorPos X="29" Y="43"/>
-        <UsageCount Value="8"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\lazarus\lcl\controls.pp"/>
-        <UnitName Value="Controls"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="39"/>
-        <CursorPos X="7" Y="52"/>
-        <UsageCount Value="9"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="202" Column="44" TopLine="195"/>
+        <Caret Line="229" Column="56" TopLine="211"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="203" Column="44" TopLine="196"/>
+        <Caret Line="720" Column="45" TopLine="704"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="191" Column="47" TopLine="179"/>
+        <Caret Line="727" Column="3" TopLine="703"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="430" Column="35" TopLine="418"/>
+        <Caret Line="92" Column="33" TopLine="75"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="344" Column="3" TopLine="335"/>
+        <Caret Line="332" Column="21" TopLine="303"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="62" Column="50" TopLine="51"/>
+        <Caret Line="339" Column="44" TopLine="343"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="477" Column="63" TopLine="469"/>
+        <Caret Line="79" Column="15" TopLine="62"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="59" Column="23" TopLine="55"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="96" Column="57" TopLine="83"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="471" Column="32" TopLine="447"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="533" Column="59" TopLine="511"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="516" Column="53" TopLine="511"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="289" Column="20" TopLine="282"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="295" Column="47" TopLine="282"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="289" Column="20" TopLine="282"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="291" Column="14" TopLine="282"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="292" Column="14" TopLine="283"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="116" Column="66" TopLine="93"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="182" Column="3" TopLine="180"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="551" Column="3" TopLine="520"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="191" Column="54" TopLine="180"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="536" Column="65" TopLine="520"/>
-      </Position>
-      <Position>
-        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="546" Column="26" TopLine="520"/>
+        <Caret Line="157" Column="96" TopLine="143"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="546" Column="25" TopLine="520"/>
+        <Caret Line="92" Column="33" TopLine="64"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="110" Column="46" TopLine="99"/>
+        <Caret Line="332" Column="21" TopLine="303"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="61" Column="5" TopLine="41"/>
+        <Caret Line="179" Column="33" TopLine="214"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="561" Column="27" TopLine="530"/>
+        <Caret Line="439" Column="66" TopLine="423"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="61" Column="19" TopLine="44"/>
+        <Caret Line="713" Column="12" TopLine="578"/>
       </Position>
       <Position>
         <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
-        <Caret Line="115" Column="92" TopLine="93"/>
+        <Caret Line="632" Column="46" TopLine="585"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="633" Column="63" TopLine="605"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="653" Column="92" TopLine="625"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="659" Column="53" TopLine="631"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="673" Column="77" TopLine="644"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="679" Column="53" TopLine="651"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="685" Column="57" TopLine="656"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="721" Column="90" TopLine="693"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="731" Column="90" TopLine="703"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="660" Column="8" TopLine="643"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="674" Column="7" TopLine="657"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="704" Column="63" TopLine="674"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="738" Column="6" TopLine="709"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="646" Column="56" TopLine="626"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="458" Column="63" TopLine="442"/>
+      </Position>
+      <Position>
+        <Filename Value="pdf2htmlexfrontend_formprincipal.pas"/>
+        <Caret Line="474" Column="107" TopLine="425"/>
       </Position>
     </JumpHistory>
     <RunParams>

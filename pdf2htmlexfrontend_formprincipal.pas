@@ -6,18 +6,21 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  ExtCtrls, Process, LazStringUtils, FileUtil, LazFileUtils, LCLIntf;
+  ExtCtrls, Process, LazStringUtils, FileUtil, LazFileUtils, LCLIntf, Menus;
 
 type
 
   { TFormPrincipal }
 
   TFormPrincipal = class(TForm)
+    ButtonPdfHtmlExAtribuirValorPadrao: TButton;
+    ButtonSalvarConfiguracao: TButton;
     ButtonConverter: TButton;
     ButtonRemoverLista: TButton;
     ButtonRemoverListaTodos: TButton;
     ButtonSelecionarArquivosPdf: TButton;
     ButtonSelecionarPastaSaida: TButton;
+    CheckBoxPdfHtmlExHabilitado: TCheckBox;
     CheckBoxSubstituirArquivosAutomaticamente: TCheckBox;
     CheckBoxExibirConsoleProcessamento: TCheckBox;
     ComboBoxCodigoIncluirSecao: TComboBox;
@@ -25,41 +28,61 @@ type
     ComboBoxPastaSaida: TComboBox;
     Label1: TLabel;
     LabelConfiguracaoXml: TLabel;
+    LabeledEditPdfHtmlExParametro: TLabeledEdit;
+    LabeledEditPdfHtmlExValor: TLabeledEdit;
     LabelManualHtml: TLabel;
     LabelArquivoPdf: TLabel;
     LabelTutorialVideo: TLabel;
     LabelCodigoFonte: TLabel;
+    ListBoxPdfHtmlExConfig: TListBox;
     ListBoxArquivoPdf: TListBox;
     MemoOperacao: TMemo;
+    Separator1: TMenuItem;
+    MenuItemReiniciarPosicaoJanela: TMenuItem;
+    MenuItemSair: TMenuItem;
+    MenuItempdf2htmlEX: TMenuItem;
     OpenDialogPdf: TOpenDialog;
     PageControl1: TPageControl;
+    PopupMenupdf2htmlEX: TPopupMenu;
     ProgressBarConversao: TProgressBar;
     SelectDirectoryDialogSaida: TSelectDirectoryDialog;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
+    TrayIconpdf2htmlEX: TTrayIcon;
+    procedure ButtonSalvarConfiguracaoClick(Sender: TObject);
     procedure ButtonConverterClick(Sender: TObject);
+    procedure ButtonPdfHtmlExAtribuirValorPadraoClick(Sender: TObject);
     procedure ButtonRemoverListaClick(Sender: TObject);
     procedure ButtonRemoverListaTodosClick(Sender: TObject);
     procedure ButtonSelecionarArquivosPdfClick(Sender: TObject);
     procedure ButtonSelecionarPastaSaidaClick(Sender: TObject);
+    procedure CheckBoxPdfHtmlExHabilitadoChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure LabelConfiguracaoXmlDblClick(Sender: TObject);
+    procedure LabeledEditPdfHtmlExValorChange(Sender: TObject);
     procedure LabelManualHtmlClick(Sender: TObject);
     procedure LabelCodigoFonteClick(Sender: TObject);
     procedure LabelTutorialVideoClick(Sender: TObject);
     procedure ListBoxArquivoPdfClick(Sender: TObject);
     procedure ListBoxArquivoPdfDblClick(Sender: TObject);
+    procedure ListBoxPdfHtmlExConfigClick(Sender: TObject);
+    procedure MenuItemReiniciarPosicaoJanelaClick(Sender: TObject);
+    procedure MenuItemSairClick(Sender: TObject);
   private
 
   public
+    Versao: String;
     ArquivoXml: String;
+    StringListConfig: TStringList;
     StringListXml: TStringList;
     StringListPdf: TStringList;
     UrlCodigoFonte: String;
     UrlTutorialVideo: String;
+    ListBoxPdfHtmlExConfigurando: Boolean;
 
     function MyGetPart(GTag, GRegistro: String): String;
     function iGetPart(GTag1, GTag2, GRegistro: String): String;
@@ -106,12 +129,17 @@ var
   FIncluirCodigoItens: String = '';
   FIncluirCodigoIndice: SmallInt = 0;
   FIncluirCodigoSecaoIndice: SmallInt = 0;
+  FIndice: SmallInt;
 begin
+  Versao := '1.2';
   UrlCodigoFonte := 'https://github.com/ebarruda13/pdf2htmlexfrontend';
   UrlTutorialVideo := 'https://youtu.be/tg7nACwtZ0Y';
 
   LabelCodigoFonte.Hint := UrlCodigoFonte;
   LabelTutorialVideo.Hint := UrlTutorialVideo;
+
+  FormPrincipal.Caption := 'pdf2htmlEX Frontend - Por Ericson Benjamim - versão ' + Versao;
+  TrayIconpdf2htmlEX.Hint := FormPrincipal.Caption;
 
   ComboBoxPastaSaida.Items.Add('Mesma pasta do arquivo PDF');
 
@@ -123,6 +151,88 @@ begin
 
   StringListXml := TStringList.Create;
   StringListPdf := TStringList.Create;
+  StringListConfig := TStringList.Create;
+
+  ListBoxPdfHtmlExConfigurando := false;
+
+  if FileExists(ExtractFilePath(Application.ExeName) + 'pdf2htmlex_parametros.xml') then begin
+    try
+      StringListConfig.LoadFromFile(ExtractFilePath(Application.ExeName) + 'pdf2htmlex_parametros.xml');
+    except
+    end;
+  end else begin
+    with StringListConfig do begin
+      Add('<parametro>first-page</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Primeira página a ser convertida</descricao>');
+      Add('<parametro>last-page</parametro><valor>2147483647</valor>2147483647<padrao></padrao><habilitado>0</habilitado><descricao>Última página a ser convertida</descricao>');
+      Add('<parametro>zoom</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Zoom (valor decimal)</descricao>');
+      Add('<parametro>fit-width</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ajuste de largura para N pixels (valor decimal)</descricao>');
+      Add('<parametro>fit-height</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ajuste de altura para N pixels (valor decimal)</descricao>');
+      Add('<parametro>use-cropbox</parametro><valor>1</valor>1<padrao></padrao><habilitado>0</habilitado><descricao>Usa CropBox em vez de MediaBox</descricao>');
+      Add('<parametro>hdpi</parametro><valor>144</valor><padrao>144</padrao><habilitado>0</habilitado><descricao>Resolução horizontal para gráficos em DPI</descricao>');
+      Add('<parametro>vdpi</parametro><valor>144</valor><padrao>144</padrao><habilitado>0</habilitado><descricao>Resolução vertical para gráficos em DPI</descricao>');
+      Add('<parametro>embed</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Especifica quais elementos devem ser incorporados na saída</descricao>');
+      Add('<parametro>embed-css</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos CSS na saída</descricao>');
+      Add('<parametro>embed-font</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos arquivos de fonte na saída</descricao>');
+      Add('<parametro>embed-image</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos arquivos de imagem na saída</descricao>');
+      Add('<parametro>embed-javascript</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos JavaScript na saída</descricao>');
+      Add('<parametro>embed-outline</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos contornos na saída</descricao>');
+      Add('<parametro>split-pages</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Divide as páginas em arquivos separados</descricao>');
+      Add('<parametro>dest-dir</parametro><valor></valor><padrao>.</padrao><habilitado>0</habilitado><descricao>Especifica o diretório de destino</descricao>');
+      Add('<parametro>css-filename</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Nome do arquivo CSS gerado</descricao>');
+      Add('<parametro>page-filename</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Modelo de nome de arquivo para páginas divididas</descricao>');
+      Add('<parametro>outline-filename</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Nome do arquivo de estrutura de tópicos gerado</descricao>');
+      Add('<parametro>process-nontext</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Renderiza gráficos além de texto</descricao>');
+      Add('<parametro>process-outline</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Mostra o esboço em HTML</descricao>');
+      Add('<parametro>process-annotation</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Mostra anotação em HTML</descricao>');
+      Add('<parametro>process-form</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Inclui campos de texto e botões de opção</descricao>');
+      Add('<parametro>printing</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Ativar suporte de impressão</descricao>');
+      Add('<parametro>fallback</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Saída no modo fallback</descricao>');
+      Add('<parametro>tmp-file-size-limit</parametro><valor>-1</valor><padrao>-1</padrao><habilitado>0</habilitado><descricao>Tamanho máximo (em KB) usado por arquivos temporários, -1 para sem limite</descricao>');
+      Add('<parametro>embed-external-font</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora correspondência local para fontes externas</descricao>');
+      Add('<parametro>font-format</parametro><valor>woff</valor><padrao>woff</padrao><habilitado>0</habilitado><descricao>Sufixo para arquivos de fontes incorporadas (ttf,otf,woff,svg)</descricao>');
+      Add('<parametro>decompose-ligature</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Decompõe ligaduras, como ´¼ü -> fi</descricao>');
+      Add('<parametro>auto-hint</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Use "fontforge autohint" em fontes sem dicas</descricao>');
+      Add('<parametro>external-hint-tool</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ferramenta externa para fontes com dicas (substitui --auto-hint)</descricao>');
+      Add('<parametro>stretch-narrow-glyph</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Alonga glifos estreitos em vez de preenchê-los</descricao>');
+      Add('<parametro>squeeze-wide-glyph</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Reduz glifos largos em vez de truncá-los</descricao>');
+      Add('<parametro>override-fstype</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Limpa os bits fstype em fontes TTF/OTF</descricao>');
+      Add('<parametro>process-type3</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Converte fontes Tipo 3 para web (experimental)</descricao>');
+      Add('<parametro>heps</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Limite horizontal para mesclar texto, em pixels</descricao>');
+      Add('<parametro>veps</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Limite vertical para mesclar texto, em pixels</descricao>');
+      Add('<parametro>space-threshold</parametro><valor>0.125</valor><padrao>0.125</padrao><habilitado>0</habilitado><descricao>Limite de quebra de palavra (limiar * em) (padrão: 0.125)</descricao>');
+      Add('<parametro>font-size-multiplier</parametro><valor>4</valor><padrao>4</padrao><habilitado>0</habilitado><descricao>Um valor maior que 1 aumenta a precisão da renderização</descricao>');
+      Add('<parametro>space-as-offset</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Trata caracteres de espaço como deslocamentos</descricao>');
+      Add('<parametro>tounicode</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Como lidar com ToUnicode CMaps (0=auto, 1=forçar, -1=ignorar)</descricao>');
+      Add('<parametro>optimize-text</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Tenta reduzir o número de elementos HTML usados para texto</descricao>');
+      Add('<parametro>correct-text-visibility</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Tenta detectar textos cobertos por outros gráficos e organizá-los adequadamente</descricao>');
+      Add('<parametro>bg-format</parametro><valor>png</valor><padrao>png</padrao><habilitado>0</habilitado><descricao>Especifica o formato da imagem de fundo</descricao>');
+      Add('<parametro>svg-node-count-limit</parametro><valor>-1</valor><padrao>-1</padrao><habilitado>0</habilitado><descricao>Se a contagem de nós em uma imagem de fundo SVG exceder esse limite, retorne esta página para o fundo de bitmap; valor negativo significa sem limite</descricao>');
+      Add('<parametro>svg-embed-bitmap</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora bitmaps em plano de fundo SVG; 0: despeje bitmaps em arquivos externos, se possível</descricao>');
+      Add('<parametro>owner-password</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Senha do proprietário (para arquivos criptografados)</descricao>');
+      Add('<parametro>user-password</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Senha do usuário (para arquivos criptografados)</descricao>');
+      Add('<parametro>no-drm</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Substitui configurações de DRM do documento</descricao>');
+      Add('<parametro>clean-tmp</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Remove arquivos temporários após a conversão</descricao>');
+      Add('<parametro>tmp-dir</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Especifica a localização do diretório temporário. (padrão: "C:\Usuários\%nomedeusuário%\AppData\Local\Temp")</descricao>)');
+      Add('<parametro>data-dir</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Especifica o diretório de dados (padrão: "%execdir%/data")</descricao>');
+      Add('<parametro>debug</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Imprime informações de depuração</descricao>');
+      Add('<parametro>proof</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Textos são desenhados na camada de texto e no fundo para prova</descricao>');
+    end;
+
+    try
+      StringListConfig.SaveToFile(ExtractFilePath(Application.ExeName) + 'pdf2htmlex_parametros.xml');
+    except
+    end;
+  end;
+
+  if StringListConfig.Count > 0 then begin
+    StringListConfig.Sort;
+
+    for FIndice := 0 to StringListConfig.Count - 1 do begin
+      if Length(Trim(MyGetPart('parametro', StringListConfig.Strings[FIndice]))) > 0 then begin
+        ListBoxPdfHtmlExConfig.Items.Add(MyGetPart('parametro', StringListConfig.Strings[FIndice]) + ': ' + MyGetPart('valor', StringListConfig.Strings[FIndice]));
+      end;
+    end;
+  end;
 
   try
     StringListXml.LoadFromFile(ArquivoXml);
@@ -223,6 +333,10 @@ end;
 procedure TFormPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   SalvaConfiguracao;
+
+  StringListXml.Free;
+  StringListPdf.Free;
+  StringListConfig.Free;
 end;
 
 procedure TFormPrincipal.SalvaConfiguracao;
@@ -255,8 +369,10 @@ begin
   except
   end;
 
-  StringListXml.Free;
-  StringListPdf.Free;
+  try
+    StringListConfig.SaveToFile(ExtractFilePath(Application.ExeName) + 'pdf2htmlex_parametros.xml');
+  except
+  end;
 end;
 
 procedure TFormPrincipal.ListBoxArquivoPdfClick(Sender: TObject);
@@ -298,6 +414,131 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TFormPrincipal.ListBoxPdfHtmlExConfigClick(Sender: TObject);
+begin
+  ListBoxPdfHtmlExConfigurando := true;
+
+  if ListBoxPdfHtmlExConfig.ItemIndex > -1 then begin
+    try
+      LabeledEditPdfHtmlExParametro.Text := MyGetPart('parametro', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+      LabeledEditPdfHtmlExValor.Text := MyGetPart('valor', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+      CheckBoxPdfHtmlExHabilitado.Checked := StrToBoolDef(MyGetPart('habilitado', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]), false);
+    except
+    end;
+  end;
+
+  ListBoxPdfHtmlExConfigurando := false;
+end;
+
+procedure TFormPrincipal.LabeledEditPdfHtmlExValorChange(Sender: TObject);
+var
+  FParametro: String;
+  FValor: String;
+  FPadrao: String;
+  FHabilitado: String;
+  FDescricao: String;
+begin
+  if (ListBoxPdfHtmlExConfig.ItemIndex > -1) and not ListBoxPdfHtmlExConfigurando then begin
+    ListBoxPdfHtmlExConfigurando := true;
+
+    try
+      FParametro := LabeledEditPdfHtmlExParametro.Text;
+      FValor := LabeledEditPdfHtmlExValor.Text;
+      FHabilitado := BoolToStr(CheckBoxPdfHtmlExHabilitado.Checked, '1', '0');
+
+      FPadrao := MyGetPart('padrao', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+      FDescricao := MyGetPart('descricao', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+
+      StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex] :=
+        '<parametro>' + FParametro + '</parametro>' +
+        '<valor>' + FValor + '</valor>' +
+        '<padrao>' + FPadrao + '</padrao>' +
+        '<habilitado>' + FHabilitado + '</habilitado>' +
+        '<descricao>' + FDescricao + '</descricao>';
+
+      ListBoxPdfHtmlExConfig.Items.Strings[ListBoxPdfHtmlExConfig.ItemIndex] := FParametro + ': ' + FValor;
+    except
+    end;
+
+    ListBoxPdfHtmlExConfigurando := false;
+  end;
+end;
+
+procedure TFormPrincipal.CheckBoxPdfHtmlExHabilitadoChange(Sender: TObject);
+var
+  FParametro: String;
+  FValor: String;
+  FPadrao: String;
+  FHabilitado: String;
+  FDescricao: String;
+begin
+  if (ListBoxPdfHtmlExConfig.ItemIndex > -1) and not ListBoxPdfHtmlExConfigurando then begin
+    ListBoxPdfHtmlExConfigurando := true;
+
+    try
+      FParametro := MyGetPart('parametro', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+      FValor := MyGetPart('valor', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+      FHabilitado := BoolToStr(CheckBoxPdfHtmlExHabilitado.Checked, '1', '0');
+
+      FPadrao := MyGetPart('padrao', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+      FDescricao := MyGetPart('descricao', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+
+      StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex] :=
+        '<parametro>' + FParametro + '</parametro>' +
+        '<valor>' + FValor + '</valor>' +
+        '<padrao>' + FPadrao + '</padrao>' +
+        '<habilitado>' + FHabilitado + '</habilitado>' +
+        '<descricao>' + FDescricao + '</descricao>';
+
+      ListBoxPdfHtmlExConfig.Items.Strings[ListBoxPdfHtmlExConfig.ItemIndex] := FParametro + ': ' + FValor;
+    except
+    end;
+
+    ListBoxPdfHtmlExConfigurando := false;
+  end;
+end;
+
+procedure TFormPrincipal.ButtonPdfHtmlExAtribuirValorPadraoClick(Sender: TObject);
+var
+  FParametro: String;
+  FPadrao: String;
+  FHabilitado: String;
+  FDescricao: String;
+begin
+  if ListBoxPdfHtmlExConfig.ItemIndex > -1 then begin
+    try
+      FParametro := LabeledEditPdfHtmlExParametro.Text;
+      FHabilitado := BoolToStr(CheckBoxPdfHtmlExHabilitado.Checked, '1', '0');
+
+      FPadrao := MyGetPart('padrao', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+      FDescricao := MyGetPart('descricao', StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex]);
+
+      LabeledEditPdfHtmlExValor.Text := FPadrao;
+
+      StringListConfig.Strings[ListBoxPdfHtmlExConfig.ItemIndex] :=
+        '<parametro>' + FParametro + '</parametro>' +
+        '<valor>' + FPadrao + '</valor>' +
+        '<padrao>' + FPadrao + '</padrao>' +
+        '<habilitado>' + FHabilitado + '</habilitado>' +
+        '<descricao>' + FDescricao + '</descricao>';
+
+      ListBoxPdfHtmlExConfig.Items.Strings[ListBoxPdfHtmlExConfig.ItemIndex] := FParametro + ': ' + FPadrao;
+    except
+    end;
+  end;
+end;
+
+procedure TFormPrincipal.MenuItemReiniciarPosicaoJanelaClick(Sender: TObject);
+begin
+  FormPrincipal.Left := 50;
+  FormPrincipal.Top := 50;
+end;
+
+procedure TFormPrincipal.MenuItemSairClick(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TFormPrincipal.ButtonSelecionarArquivosPdfClick(Sender: TObject);
@@ -365,13 +606,17 @@ end;
 
 procedure TFormPrincipal.ButtonConverterClick(Sender: TObject);
 var
-  Indice: SmallInt;
-  Copiar: Boolean;
-  PastaSaida: String;
-  ArquivoHtml: String;
-  ArquivoTmp: String;
-  ProcessPdf2htmlex: TProcess;
-  SimboloResultado: String;
+  FIndice: SmallInt;
+  FCopiar: Boolean;
+  FPastaSaida: String;
+  FArquivoHtml: String;
+  FArquivoTmp: String;
+  FProcessPdf2htmlex: TProcess;
+  FSimboloResultado: String;
+  FIndiceConfig: SmallInt;
+  FParametro: String;
+  FValor: String;
+  FHabilitado: String;
 begin
   ProgressBarConversao.Position := 0;
 
@@ -381,70 +626,88 @@ begin
 
   if ListBoxArquivoPdf.Items.Count > 0 then begin
     ProgressBarConversao.Max := ListBoxArquivoPdf.Items.Count - 1;
-    ProcessPdf2htmlex := TProcess.Create(nil);
-    ProcessPdf2htmlex.ConsoleTitle := 'pdf2htmlex - não feche esta janela, ela será fechada automaticamente';
+    FProcessPdf2htmlex := TProcess.Create(nil);
+    FProcessPdf2htmlex.ConsoleTitle := 'pdf2htmlex - não feche esta janela, ela será fechada automaticamente';
 
-    ProcessPdf2htmlex.Executable := ExtractFilePath(Application.ExeName) + 'pdf2htmlex\pdf2htmlEX.exe';
-    ProcessPdf2htmlex.CurrentDirectory := ExtractFilePath(Application.ExeName) + 'pdf2htmlex\';
+    FProcessPdf2htmlex.Executable := ExtractFilePath(Application.ExeName) + 'pdf2htmlex\pdf2htmlEX.exe';
+    FProcessPdf2htmlex.CurrentDirectory := ExtractFilePath(Application.ExeName) + 'pdf2htmlex\';
 
     MemoOperacao.Lines.Add('Início: ' + DateTimeToStr(Now));
-    MemoOperacao.Lines.Add('Pasta pdf2htmlEX: ' + ProcessPdf2htmlex.CurrentDirectory);
-    MemoOperacao.Lines.Add('Executável pdf2htmlEX: ' + ProcessPdf2htmlex.Executable);
+    MemoOperacao.Lines.Add('Pasta pdf2htmlEX: ' + FProcessPdf2htmlex.CurrentDirectory);
+    MemoOperacao.Lines.Add('Executável pdf2htmlEX: ' + FProcessPdf2htmlex.Executable);
     MemoOperacao.Lines.Add('---');
 
-    if not CheckBoxExibirConsoleProcessamento.Checked then ProcessPdf2htmlex.ShowWindow := swoMinimize;
+    if not CheckBoxExibirConsoleProcessamento.Checked then FProcessPdf2htmlex.ShowWindow := swoMinimize;
 
-    ProcessPdf2htmlex.Options := ProcessPdf2htmlex.Options + [poWaitOnExit];
+    FProcessPdf2htmlex.Options := FProcessPdf2htmlex.Options + [poWaitOnExit];
 
-    for Indice := 0 to ListBoxArquivoPdf.Items.Count - 1 do begin
-      SimboloResultado := '';
-      ListBoxArquivoPdf.ItemIndex := Indice;
-      ListBoxArquivoPdf.Hint := StringListPdf.Strings[Indice];
-      LabelArquivoPdf.Caption := ExtractFileName(StringListPdf.Strings[Indice]);
+    for FIndice := 0 to ListBoxArquivoPdf.Items.Count - 1 do begin
+      FSimboloResultado := '';
+      ListBoxArquivoPdf.ItemIndex := FIndice;
+      ListBoxArquivoPdf.Hint := StringListPdf.Strings[FIndice];
+      LabelArquivoPdf.Caption := ExtractFileName(StringListPdf.Strings[FIndice]);
 
-      ProcessPdf2htmlex.Parameters.Clear;
+      FProcessPdf2htmlex.Parameters.Clear;
 
-      MemoOperacao.Lines.Add('Arquivo PDF ' + (Indice + 1).ToString + ': ' + StringListPdf.Strings[Indice]);
+      // --dest-dir
 
-      ArquivoTmp := 'arquivo_html_' + (Indice + 1).ToString + '.tmp';
+      FProcessPdf2htmlex.Parameters.Add('--embed-outline=0'); // https://github.com/coolwanglu/pdf2htmlEX/wiki/Command-Line-Options
 
-      MemoOperacao.Lines.Add('Arquivo temporário ' + (Indice + 1).ToString + ': ' + ArquivoTmp);
+      if StringListConfig.Count > 0 then begin
+        for FIndiceConfig := 0 to StringListConfig.Count - 1 do begin
+          FParametro := MyGetPart('parametro', StringListConfig.Strings[FIndiceConfig]);
+          FHabilitado := MyGetPart('habilitado', StringListConfig.Strings[FIndiceConfig]);
+          FValor := MyGetPart('valor', StringListConfig.Strings[FIndiceConfig]);
 
-      ProcessPdf2htmlex.Parameters.Add(StringListPdf.Strings[Indice]);
-      ProcessPdf2htmlex.Parameters.Add(ArquivoTmp);
-
-      try
-        ProcessPdf2htmlex.Execute;
-
-        SimboloResultado := '+';
-      except
-        SimboloResultado := '*';
+          if (Length(Trim(FParametro)) > 0) and (Length(Trim(FValor)) > 0) and StrToBoolDef(FHabilitado, false) then begin
+            FProcessPdf2htmlex.Parameters.Add('--' + FParametro + '=' + FValor);
+          end;
+        end;
       end;
 
-      ListBoxArquivoPdf.Items.Strings[Indice] := SimboloResultado + ' ' + StringListPdf.Strings[Indice];
+      MemoOperacao.Lines.Add('Arquivo PDF ' + (FIndice + 1).ToString + ': ' + StringListPdf.Strings[FIndice]);
 
-      ProgressBarConversao.Position := Indice;
+      FArquivoTmp := 'arquivo_html_' + (FIndice + 1).ToString + '.tmp';
+
+      MemoOperacao.Lines.Add('Arquivo temporário ' + (FIndice + 1).ToString + ': ' + FArquivoTmp);
+
+      FProcessPdf2htmlex.Parameters.Add(StringListPdf.Strings[FIndice]);
+      FProcessPdf2htmlex.Parameters.Add(FArquivoTmp);
+
+      //ProcessPdf2htmlex.Parameters.SaveToFile('_ProcessPdf2htmlex.bat');
+
+      try
+        FProcessPdf2htmlex.Execute;
+
+        FSimboloResultado := '+';
+      except
+        FSimboloResultado := '*';
+      end;
+
+      ListBoxArquivoPdf.Items.Strings[FIndice] := FSimboloResultado + ' ' + StringListPdf.Strings[FIndice];
+
+      ProgressBarConversao.Position := FIndice;
 
       Application.ProcessMessages;
 
       if ComboBoxPastaSaida.ItemIndex = 0 then begin
-        PastaSaida := ExtractFilePath(StringListPdf.Strings[Indice]);
+        FPastaSaida := ExtractFilePath(StringListPdf.Strings[FIndice]);
       end else begin
-        PastaSaida := IncludeTrailingPathDelimiter(ComboBoxPastaSaida.Text);
+        FPastaSaida := IncludeTrailingPathDelimiter(ComboBoxPastaSaida.Text);
       end;
 
-      ArquivoHtml := PastaSaida + ExtractFileNameOnly(StringListPdf.Strings[Indice]) + '.html';
+      FArquivoHtml := FPastaSaida + ExtractFileNameOnly(StringListPdf.Strings[FIndice]) + '.html';
 
-      MemoOperacao.Lines.Add('Arquivo destino ' + (Indice + 1).ToString + ': ' + ArquivoHtml);
+      MemoOperacao.Lines.Add('Arquivo destino ' + (FIndice + 1).ToString + ': ' + FArquivoHtml);
 
       if CheckBoxSubstituirArquivosAutomaticamente.Checked then begin
-        Copiar := true;
+        FCopiar := true;
       end else begin
-        if FileExists(ArquivoHtml) then begin
-          if QuestionDlg('Atenção','Confirma substituição do arquivo ' + ArquivoHtml + '?', mtCustom, [mrYes, '&Sim', mrNo, '&Não'], '') = mrYes then begin
-            Copiar := true;
+        if FileExists(FArquivoHtml) then begin
+          if QuestionDlg('Atenção','Confirma substituição do arquivo ' + FArquivoHtml + '?', mtCustom, [mrYes, '&Sim', mrNo, '&Não'], '') = mrYes then begin
+            FCopiar := true;
           end else begin
-            Copiar := false;
+            FCopiar := false;
           end;
         end;
       end;
@@ -453,46 +716,51 @@ begin
         begin
           MemoOperacao.Lines.Add('Incluindo código...');
 
-          IncluiCodigo(ProcessPdf2htmlex.CurrentDirectory + ArquivoTmp);
+          IncluiCodigo(FProcessPdf2htmlex.CurrentDirectory + FArquivoTmp);
 
           MemoOperacao.Lines.Add('Código incluído.');
         end;
 
-      if Copiar then begin
+      if FCopiar then begin
         try
-          CopyFile(ProcessPdf2htmlex.CurrentDirectory + ArquivoTmp, ArquivoHtml);
+          CopyFile(FProcessPdf2htmlex.CurrentDirectory + FArquivoTmp, FArquivoHtml);
 
-          SimboloResultado := SimboloResultado + '+';
+          FSimboloResultado := FSimboloResultado + '+';
         except
-          SimboloResultado := SimboloResultado + '*';
+          FSimboloResultado := FSimboloResultado + '*';
         end;
       end else begin
-        SimboloResultado := SimboloResultado + '!';
+        FSimboloResultado := FSimboloResultado + '!';
       end;
 
-      ListBoxArquivoPdf.Items.Strings[Indice] := SimboloResultado + ' ' + StringListPdf.Strings[Indice];
+      ListBoxArquivoPdf.Items.Strings[FIndice] := FSimboloResultado + ' ' + StringListPdf.Strings[FIndice];
 
       try
-        DeleteFile(ProcessPdf2htmlex.CurrentDirectory + ArquivoTmp);
+        DeleteFile(FProcessPdf2htmlex.CurrentDirectory + FArquivoTmp);
 
-        SimboloResultado := SimboloResultado + '+';
+        FSimboloResultado := FSimboloResultado + '+';
       except
-        SimboloResultado := SimboloResultado + '*';
+        FSimboloResultado := FSimboloResultado + '*';
       end;
 
-      ListBoxArquivoPdf.Items.Strings[Indice] := SimboloResultado + ' ' + StringListPdf.Strings[Indice];
+      ListBoxArquivoPdf.Items.Strings[FIndice] := FSimboloResultado + ' ' + StringListPdf.Strings[FIndice];
 
       MemoOperacao.Lines.Add('---');
     end;
 
     MemoOperacao.Lines.Add('Fim: ' + DateTimeToStr(Now));
 
-    ProcessPdf2htmlex.Free;
+    FProcessPdf2htmlex.Free;
 
     ListBoxArquivoPdf.ItemIndex := -1;
     ListBoxArquivoPdf.Hint := '';
     LabelArquivoPdf.Caption :=  'Conversão concluída.';
   end;
+end;
+
+procedure TFormPrincipal.ButtonSalvarConfiguracaoClick(Sender: TObject);
+begin
+  SalvaConfiguracao;
 end;
 
 procedure TFormPrincipal.IncluiCodigo(PArquivoHtml: String);

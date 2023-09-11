@@ -1,0 +1,54 @@
+<parametro>auto-hint</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Use "fontforge autohint" em fontes sem dicas</descricao>
+<parametro>bg-format</parametro><valor>png</valor><padrao>png</padrao><habilitado>0</habilitado><descricao>Especifica o formato da imagem de fundo</descricao>
+<parametro>clean-tmp</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Remove arquivos temporários após a conversão</descricao>
+<parametro>correct-text-visibility</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Tenta detectar textos cobertos por outros gráficos e organizá-los adequadamente</descricao>
+<parametro>css-filename</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Nome do arquivo CSS gerado</descricao>
+<parametro>data-dir</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Especifica o diretório de dados (padrão: "%execdir%/data")</descricao>
+<parametro>debug</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Imprime informações de depuração</descricao>
+<parametro>decompose-ligature</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Decompõe ligaduras, como ´¼ü -> fi</descricao>
+<parametro>dest-dir</parametro><valor></valor><padrao>.</padrao><habilitado>0</habilitado><descricao>Especifica o diretório de destino</descricao>
+<parametro>embed</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Especifica quais elementos devem ser incorporados na saída</descricao>
+<parametro>embed-css</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos CSS na saída</descricao>
+<parametro>embed-external-font</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora correspondência local para fontes externas</descricao>
+<parametro>embed-font</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos arquivos de fonte na saída</descricao>
+<parametro>embed-image</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos arquivos de imagem na saída</descricao>
+<parametro>embed-javascript</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos JavaScript na saída</descricao>
+<parametro>embed-outline</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora arquivos contornos na saída</descricao>
+<parametro>external-hint-tool</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ferramenta externa para fontes com dicas (substitui --auto-hint)</descricao>
+<parametro>fallback</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Saída no modo fallback</descricao>
+<parametro>first-page</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Primeira página a ser convertida</descricao>
+<parametro>fit-height</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ajuste de altura para N pixels (valor decimal)</descricao>
+<parametro>fit-width</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Ajuste de largura para N pixels (valor decimal)</descricao>
+<parametro>font-format</parametro><valor>svg</valor><padrao>woff</padrao><habilitado>1</habilitado><descricao>Sufixo para arquivos de fontes incorporadas (ttf,otf,woff,svg)</descricao>
+<parametro>font-size-multiplier</parametro><valor>4</valor><padrao>4</padrao><habilitado>0</habilitado><descricao>Um valor maior que 1 aumenta a precisão da renderização</descricao>
+<parametro>hdpi</parametro><valor>144</valor><padrao>144</padrao><habilitado>1</habilitado><descricao>Resolução horizontal para gráficos em DPI</descricao>
+<parametro>heps</parametro><valor>1</valor><padrao>1</padrao><habilitado>1</habilitado><descricao>Limite horizontal para mesclar texto, em pixels</descricao>
+<parametro>last-page</parametro><valor>2147483647</valor>2147483647<padrao></padrao><habilitado>0</habilitado><descricao>Última página a ser convertida</descricao>
+<parametro>no-drm</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Substitui configurações de DRM do documento</descricao>
+<parametro>optimize-text</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Tenta reduzir o número de elementos HTML usados para texto</descricao>
+<parametro>outline-filename</parametro><valor></valor><padrao></padrao><habilitado>1</habilitado><descricao>Nome do arquivo de estrutura de tópicos gerado</descricao>
+<parametro>override-fstype</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Limpa os bits fstype em fontes TTF/OTF</descricao>
+<parametro>owner-password</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Senha do proprietário (para arquivos criptografados)</descricao>
+<parametro>page-filename</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Modelo de nome de arquivo para páginas divididas</descricao>
+<parametro>printing</parametro><valor>1</valor><padrao>1</padrao><habilitado>1</habilitado><descricao>Ativar suporte de impressão</descricao>
+<parametro>process-annotation</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Mostra anotação em HTML</descricao>
+<parametro>process-form</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Inclui campos de texto e botões de opção</descricao>
+<parametro>process-nontext</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Renderiza gráficos além de texto</descricao>
+<parametro>process-outline</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Mostra o esboço em HTML</descricao>
+<parametro>process-type3</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Converte fontes Tipo 3 para web (experimental)</descricao>
+<parametro>proof</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Textos são desenhados na camada de texto e no fundo para prova</descricao>
+<parametro>space-as-offset</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Trata caracteres de espaço como deslocamentos</descricao>
+<parametro>space-threshold</parametro><valor>0.125</valor><padrao>0.125</padrao><habilitado>0</habilitado><descricao>Limite de quebra de palavra (limiar * em) (padrão: 0.125)</descricao>
+<parametro>split-pages</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Divide as páginas em arquivos separados</descricao>
+<parametro>squeeze-wide-glyph</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Reduz glifos largos em vez de truncá-los</descricao>
+<parametro>stretch-narrow-glyph</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Alonga glifos estreitos em vez de preenchê-los</descricao>
+<parametro>svg-embed-bitmap</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Incorpora bitmaps em plano de fundo SVG; 0: despeje bitmaps em arquivos externos, se possível</descricao>
+<parametro>svg-node-count-limit</parametro><valor>-1</valor><padrao>-1</padrao><habilitado>0</habilitado><descricao>Se a contagem de nós em uma imagem de fundo SVG exceder esse limite, retorne esta página para o fundo de bitmap; valor negativo significa sem limite</descricao>
+<parametro>tmp-dir</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Especifica a localização do diretório temporário. (padrão: "C:\Usuários\%nomedeusuário%\AppData\Local\Temp")</descricao>)
+<parametro>tmp-file-size-limit</parametro><valor>-1</valor><padrao>-1</padrao><habilitado>0</habilitado><descricao>Tamanho máximo (em KB) usado por arquivos temporários, -1 para sem limite</descricao>
+<parametro>tounicode</parametro><valor>0</valor><padrao>0</padrao><habilitado>0</habilitado><descricao>Como lidar com ToUnicode CMaps (0=auto, 1=forçar, -1=ignorar)</descricao>
+<parametro>use-cropbox</parametro><valor>1</valor>1<padrao></padrao><habilitado>0</habilitado><descricao>Usa CropBox em vez de MediaBox</descricao>
+<parametro>user-password</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Senha do usuário (para arquivos criptografados)</descricao>
+<parametro>vdpi</parametro><valor>144</valor><padrao>144</padrao><habilitado>0</habilitado><descricao>Resolução vertical para gráficos em DPI</descricao>
+<parametro>veps</parametro><valor>1</valor><padrao>1</padrao><habilitado>0</habilitado><descricao>Limite vertical para mesclar texto, em pixels</descricao>
+<parametro>zoom</parametro><valor></valor><padrao></padrao><habilitado>0</habilitado><descricao>Zoom (valor decimal)</descricao>
